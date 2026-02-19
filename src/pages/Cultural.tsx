@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';  
 import { 
   Search,
   Star, 
@@ -623,8 +624,11 @@ const NepalCulturalToursPage: React.FC = () => {
                     </button>
                     
                     <button className="py-2 px-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300">
-                      Book Now
-                    </button>
+<Link
+  to="/book-now"
+>
+  Book Now
+</Link>                    </button>
                   </div>
                 </div>
               </motion.div>

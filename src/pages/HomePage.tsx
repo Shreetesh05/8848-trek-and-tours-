@@ -1,4 +1,5 @@
 import { useState,} from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Mountain, 
@@ -535,10 +536,13 @@ const Home = () => {
                   </div>
 
                   <button className="w-full py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 group">
-                    <span className="flex items-center justify-center gap-2">
-                      Book Now
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
+                    <Link
+  to="/book-now"
+  className="w-full py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 group flex items-center justify-center gap-2"
+>
+  Book Now
+  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+</Link>
                   </button>
                 </div>
               </motion.div>

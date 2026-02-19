@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingCTA from './components/FloatingCTA';
-
+import BookNowForm from './components/BookNowForm';
 import HomePage from './pages/HomePage';
 
 import AboutUsPage from './pages/AboutUsPage';
@@ -17,6 +17,7 @@ import NationalParksPage from './pages/NationalParksPage';
 import Adventure from './pages/Adventure';  
 import Blog from './pages/Blog';
 import NepalTourismMap from './pages/NepalTourismMap';
+
 function App() {
   return (
     <Router>
@@ -35,6 +36,7 @@ function App() {
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/adventure" element={<Adventure />} /> 
           <Route path="/nepal-tourism-map" element={<NepalTourismMap />} />
+          <Route path="/book-now" element={<BookNowForm />} />
         </Routes>
         <Footer />
         <FloatingCTA />

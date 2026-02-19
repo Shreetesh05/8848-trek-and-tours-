@@ -1,5 +1,6 @@
 import  { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Search, 
    
@@ -459,7 +460,7 @@ const SpiritualToursPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
               {/* Search */}
               <div>
-                <label className="block text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
+                <label className=" text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
                   <Search className="w-4 h-4" />
                   Search Retreats
                 </label>
@@ -477,7 +478,7 @@ const SpiritualToursPage: React.FC = () => {
               
               {/* Focus Filter */}
               <div>
-                <label className="block text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
+                <label className=" text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
                   <Target className="w-4 h-4" />
                   Spiritual Focus
                 </label>
@@ -497,7 +498,7 @@ const SpiritualToursPage: React.FC = () => {
               
               {/* Intensity Filter */}
               <div>
-                <label className="block text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
+                <label className=" text-sm font-semibold mb-2 text-gray-700 flex items-center gap-2">
                   <Zap className="w-4 h-4" />
                   Intensity Level
                 </label>
@@ -700,7 +701,11 @@ const SpiritualToursPage: React.FC = () => {
                     </button>
                     
                     <button className="py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300">
-                      Book Now
+                      <Link
+  to="/book-now"
+>
+  Book Now
+</Link>
                     </button>
                   </div>
                 </div>
