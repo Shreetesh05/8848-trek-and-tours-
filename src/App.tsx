@@ -17,6 +17,7 @@ import NationalParksPage from './pages/NationalParksPage';
 import Adventure from './pages/Adventure';  
 import Blog from './pages/Blog';
 import NepalTourismMap from './pages/NepalTourismMap';
+import PaymentPage from './components/PaymentPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/adventure" element={<Adventure />} /> 
           <Route path="/nepal-tourism-map" element={<NepalTourismMap />} />
           <Route path="/book-now" element={<BookNowForm />} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
         <Footer />
         <FloatingCTA />

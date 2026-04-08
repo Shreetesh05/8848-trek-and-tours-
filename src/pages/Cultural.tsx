@@ -538,7 +538,7 @@ const NepalCulturalToursPage: React.FC = () => {
                       <Clock className="w-4 h-4" />
                       <span>{tour.duration}</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center  gap-1">
                       <Users className="w-4 h-4" />
                       <span>{tour.groupSize} people</span>
                     </div>
