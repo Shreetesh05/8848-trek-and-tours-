@@ -1,6 +1,6 @@
-import { useState,} from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Mountain, 
   Compass, 
@@ -17,7 +17,8 @@ import {
   Umbrella,
   Sun,
   Moon,
-  Heart
+  Heart,
+  X
 } from 'lucide-react';
 import NationalParksPage from './NationalParksPage';
 import NepalTourismMap from './NepalTourismMap';
@@ -312,6 +313,46 @@ const scaleIn = {
 
 const Home = () => {
   const [activeSeason, setActiveSeason] = useState<'winter' | 'monsoon'>('winter');
+  const [showPackageModal, setShowPackageModal] = useState(false);
+  const [selectedTrek, setSelectedTrek] = useState<Trek | null>(null);
+
+  const openPackageModal = (trek: Trek) => {
+    setSelectedTrek(trek);
+    setShowPackageModal(true);
+  };
+
+  const closePackageModal = () => {
+    setShowPackageModal(false);
+    setSelectedTrek(null);
+  };
+
+  // Package options data
+  const packageOptions = [
+    {
+      id: 'budget',
+      name: 'Budget Package',
+      description: 'Essential services for budget-conscious travelers. Shared accommodation, basic meals, and group transport.',
+      price: 'From $599',
+      color: 'from-green-400 to-emerald-600',
+      icon: <Users className="w-6 h-6" />
+    },
+    {
+      id: 'premium',
+      name: 'Premium Package',
+      description: 'Enhanced comfort with private rooms, gourmet meals, experienced guides, and extra services.',
+      price: 'From $999',
+      color: 'from-blue-400 to-indigo-600',
+      icon: <Star className="w-6 h-6" />
+    },
+    {
+      id: 'luxury',
+      name: 'Luxury Package',
+      description: 'Ultimate luxury experience with 5-star lodges, personal butler, helicopter transfers, and exclusive tours.',
+      price: 'From $2,499',
+      color: 'from-amber-400 to-orange-600',
+      icon: <Heart className="w-6 h-6" />
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-gray-900 overflow-x-hidden">
@@ -535,14 +576,12 @@ const Home = () => {
                     </div>
                   </div>
 
-                  <button className="w-full py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 group">
-                    <Link
-  to="/book-now"
-  className="w-full py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 group flex items-center justify-center gap-2"
->
-  Book Now
-  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-</Link>
+                  <button
+                    onClick={() => openPackageModal(trek)}
+                    className="w-full py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 group flex items-center justify-center gap-2"
+                  >
+                    Book Now
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </motion.div>
@@ -836,9 +875,88 @@ const Home = () => {
         </div>
       </section>
       <NepalTourismMap />
+
+      {/* Package Selection Modal */}
+      <AnimatePresence>
+        {showPackageModal && selectedTrek && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+          >
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closePackageModal}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 z-10"
+            >
+              {/* Close Button */}
+              <button
+                onClick={closePackageModal}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <X className="w-6 h-6 text-gray-600" />
+              </button>
+
+              {/* Modal Header */}
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-900">
+                  Choose Your Package for <br />
+                  <span className="bg-gradient-to-r from-cyan-600 to-blue-700 bg-clip-text text-transparent">
+                    {selectedTrek.name}
+                  </span>
+                </h2>
+                <p className="text-gray-600 mt-2">
+                  Select the perfect package that fits your needs and budget.
+                </p>
+              </div>
+
+              {/* Package Options */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {packageOptions.map((pkg) => (
+                  <motion.div
+                    key={pkg.id}
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    className="relative bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  >
+                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${pkg.color}`}></div>
+                    <div className="p-6">
+                      <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${pkg.color} text-white mb-4`}>
+                        {pkg.icon}
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
+                      <p className="text-gray-600 text-sm mb-4">{pkg.description}</p>
+                      <p className="text-2xl font-bold text-gray-900 mb-4">{pkg.price}</p>
+                      <button className="w-full py-2.5 rounded-lg bg-gray-900 text-white font-semibold hover:bg-gray-800 transition-colors">
+                        Select {pkg.name.split(' ')[0]}
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Footer Note */}
+              <p className="text-center text-sm text-gray-500 mt-6">
+                * Prices may vary based on season and availability. Contact us for custom packages.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
 export default Home;
-

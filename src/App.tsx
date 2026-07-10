@@ -18,6 +18,7 @@ import Adventure from './pages/Adventure';
 import Blog from './pages/Blog';
 import NepalTourismMap from './pages/NepalTourismMap';
 import PaymentPage from './components/PaymentPage';   
+import TrekDetail from './pages/TrekDetail';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/nepal-tourism-map" element={<NepalTourismMap />} />
           <Route path="/book-now" element={<BookNowForm />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/trek/:id" element={<TrekDetail />} />
         </Routes>
         <Footer />
         <FloatingCTA />
